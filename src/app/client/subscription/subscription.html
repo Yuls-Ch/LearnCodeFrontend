@@ -1,0 +1,99 @@
+<main class="flex-grow flex items-center justify-center p-6">
+  <ng-container *ngIf="subscription; else cargando">
+
+    <div class="w-full max-w-2xl">
+      <div
+        class="bg-white/80 dark:bg-slate-900/40 backdrop-blur-2xl border border-slate-200 dark:border-slate-800/60 p-10 md:p-14 rounded-[2.5rem] shadow-2xl relative overflow-hidden"
+      >
+
+        <!-- Banner 48 horas -->
+        <div
+          *ngIf="subscription.planCode !== 'FREE' && subscription.startAt && canCancel(subscription.startAt)"
+          class="absolute top-0 left-0 right-0 bg-primary/10 border-b border-primary/20 py-3 px-6"
+        >
+          <div class="flex items-center justify-center gap-2 text-primary text-sm font-medium">
+            <span class="material-symbols-outlined text-lg">timer</span>
+            <span>Tienes 48 horas para cancelar tu suscripción y recibir un reembolso</span>
+          </div>
+        </div>
+
+        <!-- Título -->
+        <div class="mt-8 text-center">
+          <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500 dark:text-slate-400 mb-2">
+            Plan Actual
+          </p>
+
+          <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+            Plan
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-500">
+              {{ planName(subscription.planCode) }}
+            </span>
+          </h1>
+
+          <div
+            class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 mb-8 justify-center"
+          >
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span class="text-xs font-bold text-green-500 uppercase tracking-widest">
+              Estado: {{ subscription.status }}
+            </span>
+          </div>
+        </div>
+
+        <!-- FECHAS SOLO PARA PLANES DE PAGO -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 border-y border-slate-200/60 dark:border-slate-800/60 py-8"
+          *ngIf="subscription.planCode !== 'FREE'; else freeInfo"
+        >
+          <div class="flex flex-col items-center md:items-start md:pl-8 md:border-r border-slate-200 dark:border-slate-800">
+            <span class="text-xs text-slate-500 uppercase tracking-widest mb-1">
+              Fecha de inicio
+            </span>
+            <span class="text-xl font-medium text-slate-800 dark:text-slate-200">
+              {{ subscription.startAt | date: 'dd MMM, yyyy' }}
+            </span>
+          </div>
+
+          <div class="flex flex-col items-center md:items-start md:pl-8">
+            <span class="text-xs text-slate-500 uppercase tracking-widest mb-1">
+              Fecha de vencimiento
+            </span>
+
+            <span class="text-xl font-medium text-slate-800 dark:text-slate-200">
+              {{ subscription.endAt | date: 'dd MMM, yyyy' }}
+            </span>
+          </div>
+        </div>
+
+        <!-- MENSAJE PARA FREE -->
+        <ng-template #freeInfo>
+          <div class="text-center py-8 text-slate-500">
+            Estás usando el plan <b>Free</b>.
+            No tienes pagos activos ni fechas de vencimiento.
+          </div>
+        </ng-template>
+
+        <!-- Botón cancelar -->
+        <div class="flex flex-col items-center gap-6">
+          <button
+            *ngIf="subscription.planCode !== 'FREE'"
+            (click)="cancelSubscription()"
+            class="px-8 py-3 rounded-full border border-slate-300 dark:border-slate-700
+                   text-slate-500 hover:text-red-500 hover:border-red-500/30 transition-all"
+          >
+            Cancelar Suscripción
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </ng-container>
+</main>
+
+<!-- Cargando -->
+<ng-template #cargando>
+  <div class="w-full text-center p-16 text-slate-400">
+    Cargando tu suscripción...
+  </div>
+</ng-template>

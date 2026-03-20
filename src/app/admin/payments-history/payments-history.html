@@ -1,0 +1,88 @@
+<main class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div>
+      <h1 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+        Historial de Pagos
+      </h1>
+      <p class="text-slate-500 dark:text-slate-400 mt-2 font-medium">
+        Visualiza el flujo de ingresos y el cumplimiento de pagos de la comunidad estudiantil.
+      </p>
+    </div>
+  </div>
+  <div
+    class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+            <th class="px-8 py-5 text-xs uppercase tracking-widest font-bold text-slate-400">Cliente</th>
+            <th class="px-8 py-5 text-xs uppercase tracking-widest font-bold text-slate-400"> Plan</th>
+            <th class="px-8 py-5 text-xs uppercase tracking-widest font-bold text-slate-400">Monto</th>
+            <th class="px-8 py-5 text-xs uppercase tracking-widest font-bold text-slate-400">Estado</th>
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-slate-100 dark:divide-slate-800/50">
+          <tr *ngFor="let pay of payments"
+            class="group hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+
+            <td class="px-8 py-5">
+              <div class="flex items-center gap-4">
+                <!-- Foto del cliente o inicial -->
+                <div
+                  class="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden flex-shrink-0 flex items-center justify-center text-white font-bold text-lg">
+                  <ng-container *ngIf="pay.photo; else initialAvatar">
+                    <img [src]="pay.photo" class="w-full h-full object-cover" />
+                  </ng-container>
+                  <ng-template #initialAvatar>
+                    {{ pay.fullName.charAt(0) }}
+                  </ng-template>
+                </div>
+
+                <!-- Nombre con efecto hover -->
+                <div>
+                  <div class="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                    {{ pay.fullName }}
+                  </div>
+                  <div class="text-xs text-slate-500 dark:text-slate-400">
+                    {{ pay.email }}
+                  </div>
+                </div>
+              </div>
+            </td>
+
+            <!--  Plan -->
+            <td class="px-8 py-5">
+              <span class="font-semibold text-slate-700 dark:text-slate-300">{{ pay.planCode }}
+              </span>
+            </td>
+
+            <!-- Monto -->
+            <td class="px-8 py-5 font-bold text-primary">
+              $ {{ pay.amount }}
+            </td>
+
+            <!-- Estado -->
+            <td class="px-8 py-5">
+              <span [ngClass]="{
+                'bg-green-100 text-green-700': pay.status === 'PAID',
+                'bg-yellow-100 text-yellow-700': pay.status === 'PENDING',
+                'bg-red-100 text-red-700': pay.status === 'FAILED'
+              }" class="px-3 py-1 rounded-full text-xs font-semibold">
+                {{ pay.status === 'PAID' ? 'PAGADO' :
+                pay.status === 'PENDING' ? 'PENDIENTE' :
+                pay.status === 'FAILED' ? 'FALLIDO' : pay.status }}
+              </span>
+            </td>
+          </tr>
+
+          <tr *ngIf="payments.length === 0">
+            <td colspan="4" class="text-center py-10 text-slate-500 dark:text-slate-400">
+              No hay pagos registrados
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

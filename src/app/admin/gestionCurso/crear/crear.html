@@ -1,0 +1,222 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center md:text-left">
+
+  <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-3">
+    Crear Nuevo Curso
+  </h1>
+
+  <p class="text-slate-400 text-lg font-light leading-relaxed max-w-2xl">
+    Completa la información para registrar un nuevo curso en la plataforma.
+  </p>
+
+</div>
+
+<div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+  <div class="absolute -inset-1 rounded-[32px]
+    bg-gradient-to-r from-cyan-400 via-emerald-400 to-indigo-500
+    blur-2xl opacity-25 animate-pulse">
+  </div>
+
+  <div class="relative rounded-[32px] p-8 md:p-12
+    bg-slate-900/40 backdrop-blur-xl
+    border border-cyan-400/20
+    shadow-[0_0_40px_rgba(0,224,255,0.10)]
+    overflow-hidden">
+
+    <form [formGroup]="form" (ngSubmit)="createCourse()" class="space-y-8">
+
+      <div>
+        <label class="block text-sm font-medium mb-2" [ngClass]="{
+            'text-red-400': form.get('title')?.invalid && form.get('title')?.touched,
+            'text-slate-400': !(form.get('title')?.invalid && form.get('title')?.touched)
+          }">
+          Título del Curso
+        </label>
+
+        <input formControlName="title"
+          class="w-full h-12 px-5 rounded-xl text-white bg-slate-950/40 border transition-all duration-300" [ngClass]="{
+            'border-red-500 focus:border-red-500 focus:ring-red-500/20':
+              form.get('title')?.invalid && form.get('title')?.touched,
+            'border-slate-800 focus:border-cyan-400/60 focus:ring-cyan-400/20':
+              !(form.get('title')?.invalid && form.get('title')?.touched)
+          }" placeholder="Ej: Angular desde cero" />
+
+        <p *ngIf="form.get('title')?.errors?.['required'] && form.get('title')?.touched"
+          class="text-sm text-red-400 mt-2">
+          El título es obligatorio.
+        </p>
+        <p *ngIf="form.get('title')?.errors?.['minlength'] && form.get('title')?.touched"
+          class="text-sm text-red-400 mt-2">
+          Debe tener al menos 5 caracteres.
+        </p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-2" [ngClass]="{
+            'text-red-400': form.get('subtitle')?.invalid && form.get('subtitle')?.touched,
+            'text-slate-400': !(form.get('subtitle')?.invalid && form.get('subtitle')?.touched)
+          }">
+          Subtítulo
+        </label>
+
+        <input formControlName="subtitle"
+          class="w-full h-12 px-5 rounded-xl text-white bg-slate-950/40 border transition-all duration-300" [ngClass]="{
+            'border-red-500 focus:border-red-500 focus:ring-red-500/20':
+              form.get('subtitle')?.invalid && form.get('subtitle')?.touched,
+            'border-slate-800 focus:border-cyan-400/60 focus:ring-cyan-400/20':
+              !(form.get('subtitle')?.invalid && form.get('subtitle')?.touched)
+          }" placeholder="Ej: Aprende paso a paso con proyectos reales" />
+
+        <p *ngIf="form.get('subtitle')?.errors?.['required'] && form.get('subtitle')?.touched"
+          class="text-sm text-red-400 mt-2">
+          El subtítulo es obligatorio.
+        </p>
+        <p *ngIf="form.get('subtitle')?.errors?.['minlength'] && form.get('subtitle')?.touched"
+          class="text-sm text-red-400 mt-2">
+          Debe tener al menos 5 caracteres.
+        </p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-2" [ngClass]="{
+            'text-red-400': form.get('description')?.invalid && form.get('description')?.touched,
+            'text-slate-400': !(form.get('description')?.invalid && form.get('description')?.touched)
+          }">
+          Descripción
+        </label>
+
+        <textarea formControlName="description" rows="5"
+          class="w-full px-5 py-4 rounded-xl resize-none border transition-all" [ngClass]="{
+            'border-red-500 focus:border-red-500 focus:ring-red-500/20':
+              form.get('description')?.invalid && form.get('description')?.touched,
+            'border-slate-800 focus:border-cyan-400/60 focus:ring-cyan-400/20':
+              !(form.get('description')?.invalid && form.get('description')?.touched)
+          }"></textarea>
+
+        <p *ngIf="form.get('description')?.errors?.['required'] && form.get('description')?.touched"
+          class="text-sm text-red-400 mt-2">
+          La descripción es obligatoria.
+        </p>
+        <p *ngIf="form.get('description')?.errors?.['minlength'] && form.get('description')?.touched"
+          class="text-sm text-red-400 mt-2">
+          Debe tener mínimo 20 caracteres.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <div>
+          <label class="block text-sm font-medium text-slate-400 mb-2">
+            Icono del Curso
+          </label>
+
+          <input type="file" accept="image/*" (change)="onIconSelected($event)" class="block w-full text-sm text-slate-400
+            file:mr-4 file:h-11 file:px-5
+            file:rounded-xl file:border-0
+            file:bg-cyan-400/10 file:text-cyan-300
+            hover:file:bg-cyan-400/20
+            transition-all cursor-pointer" />
+
+          <div *ngIf="iconPreview" class="mt-4 flex items-center gap-4">
+            <img [src]="iconPreview" class="w-16 h-16 rounded-xl border border-white/10 shadow-lg object-cover" />
+            <p class="text-xs text-slate-500">Vista previa del icono</p>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-400 mb-2">
+            Color Cover
+          </label>
+
+          <div class="flex gap-3 items-center">
+            <input type="color" formControlName="coverUrl"
+              class="w-12 h-11 rounded-xl cursor-pointer border bg-slate-950" />
+            <input type="text" [value]="form.get('coverUrl')?.value" readonly
+              class="flex-1 h-11 px-4 rounded-xl bg-slate-950/40 border border-slate-800 text-slate-200 text-sm" />
+
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-slate-400 mb-2">
+          ¿Curso Gratis?
+        </label>
+
+        <select formControlName="free" class="w-full h-12 px-5 rounded-xl appearance-none
+          bg-slate-950/40 border border-slate-800
+          text-slate-200
+          focus:border-cyan-400/60 focus:ring-1 focus:ring-cyan-400/20
+          transition-all cursor-pointer">
+          <option [ngValue]="true">Sí, acceso abierto</option>
+          <option [ngValue]="false">No, requiere plan</option>
+        </select>
+      </div>
+
+      <div *ngIf="!form.get('free')?.value">
+        <label class="block text-sm font-medium mb-2" [ngClass]="{
+            'text-red-400': form.get('requiredPlanCode')?.invalid && form.get('requiredPlanCode')?.touched,
+            'text-slate-400': !(form.get('requiredPlanCode')?.invalid && form.get('requiredPlanCode')?.touched)
+          }">
+          Plan requerido
+        </label>
+
+        <select formControlName="requiredPlanCode" class="w-full h-12 px-5 rounded-xl appearance-none
+          bg-slate-950/40 border border-slate-800
+          text-slate-200
+          focus:border-cyan-400/60 focus:ring-1 focus:ring-cyan-400/20
+          transition-all cursor-pointer">
+          <option *ngFor="let plan of plans" [value]="plan.code">{{ plan.name }}</option>
+        </select>
+
+        <p *ngIf="form.get('requiredPlanCode')?.errors?.['required'] && form.get('requiredPlanCode')?.touched"
+          class="text-sm text-red-400 mt-2">
+          Debes seleccionar un plan.
+        </p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-slate-400 mb-2">
+          ¿Publicar Curso?
+        </label>
+
+        <select formControlName="isPublished" class="w-full h-12 px-5 rounded-xl appearance-none
+          bg-slate-950/40 border border-slate-800
+          text-slate-200
+          focus:border-cyan-400/60 focus:ring-1 focus:ring-cyan-400/20
+          transition-all cursor-pointer">
+          <option [ngValue]="true">Sí, publicar ahora</option>
+          <option [ngValue]="false">No, guardar como borrador</option>
+        </select>
+      </div>
+
+      <div class="pt-4">
+        <button type="submit" class="w-full h-14 rounded-full font-bold text-lg
+          flex items-center justify-center gap-3
+          bg-gradient-to-r from-emerald-400 to-green-500
+          text-slate-950
+          shadow-[0_0_25px_rgba(0,200,150,0.35)]
+          hover:shadow-[0_0_35px_rgba(0,200,150,0.6)]
+          hover:-translate-y-[2px]
+          transition-all duration-300">
+          <span class="material-symbols-outlined font-bold">add_circle</span>
+          Crear Curso
+        </button>
+      </div>
+
+    </form>
+
+    <div class="flex justify-start mt-6">
+      <button type="button" (click)="volver()" class="flex items-center gap-2 px-5 py-2 rounded-full
+               text-sm font-medium text-slate-400
+               hover:text-cyan-300 hover:bg-slate-800/40
+               transition-all duration-300">
+        <span class="material-symbols-outlined text-base">arrow_back</span>
+        Volver
+      </button>
+    </div>
+
+  </div>
+</div>
+<br><br>

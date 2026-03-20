@@ -1,0 +1,189 @@
+<div class="ambient-glow"></div>
+
+<main
+  class="max-w-7xl w-full mx-auto
+         bg-background-light dark:bg-background-dark
+         font-display text-slate-900 dark:text-slate-100
+         min-h-screen flex flex-col justify-center p-6 antialiased"
+>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="text-center py-40 text-xl font-bold">
+    Cargando planes...
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!loading">
+
+    <!-- Header -->
+    <div class="text-center mb-16 space-y-4">
+
+      <div
+        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full
+               bg-primary/10 border border-primary/20
+               text-primary text-xs font-bold tracking-widest uppercase">
+
+        <span class="material-icons-round text-sm">auto_awesome</span>
+        Planes Disponibles
+      </div>
+
+      <h1
+        class="text-4xl md:text-6xl font-extrabold tracking-tight
+               bg-clip-text text-transparent
+               bg-gradient-to-b from-slate-900 to-slate-600
+               dark:from-white dark:to-slate-400"
+      >
+        Impulsa tu carrera al siguiente nivel
+      </h1>
+
+      <p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+        Elige el plan que mejor se adapte a tus objetivos profesionales y domina el código.
+      </p>
+
+    </div>
+
+    <!-- Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+
+
+      <!-- PLAN -->
+      <div
+        *ngFor="let plan of plans; let i = index"
+        class="glass-card p-8 rounded-[2rem] flex flex-col h-full border-2 relative"
+
+        [ngClass]="{
+          'border-free': i === 0,
+          'border-gold card-gold scale-105 shadow-2xl shadow-amber-500/5 z-10': i === 1,
+          'border-diamond card-diamond': i === 2,
+          'border-platinum card-platinum': i === 3
+        }"
+      >
+
+        <!-- Badge -->
+        <div
+          *ngIf="i === 1"
+          class="absolute -top-4 right-8 px-4 py-1.5 bg-primary
+                 rounded-full text-[10px] font-black text-white
+                 uppercase tracking-widest shadow-lg shadow-primary/25"
+        >
+          Más Popular
+        </div>
+
+
+        <!-- Icon -->
+        <div
+          class="w-12 h-12 rounded-2xl flex items-center justify-center mb-6"
+
+          [ngClass]="{
+            'bg-slate-100 dark:bg-slate-800/50 text-slate-400': i === 0,
+            'bg-amber-500/10 text-amber-500': i === 1,
+            'bg-sky-500/10 text-sky-500': i === 2,
+            'bg-teal-500/10 text-teal-400': i === 3
+          }"
+        >
+
+          <span class="material-icons-round text-2xl">
+
+            {{
+              i === 0 ? 'sentiment_satisfied_alt' :
+              i === 1 ? 'stars' :
+              i === 2 ? 'diamond' :
+              'workspace_premium'
+            }}
+
+          </span>
+
+        </div>
+
+
+        <!-- Title -->
+        <h3 class="text-xl font-bold mb-2">
+          {{ plan.name }}
+        </h3>
+
+
+        <!-- Price -->
+        <div class="flex items-baseline gap-1 mb-4">
+
+          <span class="text-4xl font-extrabold">
+            ${{ plan.price }}
+          </span>
+
+          <span class="text-slate-500">/mes</span>
+
+        </div>
+
+
+        <!-- Description -->
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
+          {{ plan.description || 'Acceso completo a la plataforma LearnCode.' }}
+        </p>
+
+
+        <!-- Features -->
+        <ul class="space-y-4 mb-10 flex-grow text-sm">
+
+          <li class="flex items-center gap-3">
+            <span class="material-icons-round text-emerald-500 neon-glow">
+              check_circle
+            </span>
+            Acceso ilimitado a cursos
+          </li>
+
+          <li class="flex items-center gap-3">
+            <span class="material-icons-round text-emerald-500 neon-glow">
+              check_circle
+            </span>
+            Certificados oficiales
+          </li>
+
+          <li class="flex items-center gap-3">
+            <span class="material-icons-round text-emerald-500 neon-glow">
+              check_circle
+            </span>
+            Comunidad premium
+          </li>
+
+        </ul>
+
+
+        <!-- Button -->
+        <button
+          (click)="selectPlan(plan.code)"
+          [disabled]="plan.code === currentPlan"
+
+          class="holographic-btn w-full py-4 rounded-xl font-semibold transition-all"
+
+          [ngClass]="{
+            'bg-primary text-white shadow-lg shadow-primary/20 hover:shadow-primary/40':
+              i === 1 && plan.code !== currentPlan,
+
+            'bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700':
+              i !== 1 && plan.code !== currentPlan,
+
+            'bg-emerald-500 text-white cursor-not-allowed':
+              plan.code === currentPlan
+          }"
+        >
+          {{ plan.code === currentPlan ? '✔ Plan Actual' : 'Elegir Plan' }}
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <p class="mt-12 text-center text-slate-500 dark:text-slate-500 text-sm">
+
+      ¿Necesitas un plan personalizado para tu equipo?
+
+      <a class="text-primary hover:underline font-medium cursor-pointer">
+        Contáctanos
+      </a>
+
+    </p>
+
+  </div>
+
+</main>
