@@ -19,6 +19,7 @@ import { ContentManagerComponent } from './admin/gestionCurso/content-manager/co
 import { ClientViewerComponent } from './client/curso/viewer/client-viewer.component';
 import { SubscriptionComponent } from './client/subscription/subscription';
 import { PaymentsHistoryComponent } from './admin/payments-history/payments-history';
+import { ChatbotComponent } from './client/chatbot/chatbot';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -33,6 +34,7 @@ export const routes: Routes = [
       { path: 'curso', component: CursoComponent },
       { path: 'plans', component: PlansComponent },
       { path: 'subscription', component: SubscriptionComponent },
+      { path: 'chatbot', component: ChatbotComponent }
     ],
   },
   {

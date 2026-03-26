@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { routes } from './app.routes';
 import { authInterceptor } from './auth/auth.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations'; 
+import { provideMarkdown } from 'ngx-markdown';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +14,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([authInterceptor])
     ),
     importProvidersFrom(FormsModule),
-    provideAnimations()
+    provideAnimations(),
+    provideMarkdown()
   ]
 };

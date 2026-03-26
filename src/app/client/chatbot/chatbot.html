@@ -1,0 +1,31 @@
+<div class="chat-bubble-btn" (click)="toggleChat()">
+  <span *ngIf="!isOpen">💬</span>
+  <span *ngIf="isOpen">✕</span>
+</div>
+
+<div class="chat-window" [class.hidden]="!isOpen">
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <span class="chat-header-name">Asistente LearnCode</span>
+      <span class="chat-header-status">En línea</span>
+    </div>
+    <button (click)="toggleChat()">✕</button>
+  </div>
+
+  <div class="chat-messages" #messagesContainer>
+    <div *ngFor="let msg of messages" class="msg-row" [class.user]="msg.role === 'user'">
+      <div class="msg-bubble" style="white-space: pre-line;">
+        <markdown *ngIf="msg.role === 'bot'" [data]="msg.text"></markdown>
+        <span *ngIf="msg.role === 'user'">{{ msg.text }}</span>
+      </div>
+    </div>
+    <div *ngIf="loading" class="typing-indicator">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div class="chat-footer">
+    <input [(ngModel)]="inputText" (keydown.enter)="send()" placeholder="Escribe tu mensaje..." />
+    <button (click)="send()">➤</button>
+  </div>
+</div>
