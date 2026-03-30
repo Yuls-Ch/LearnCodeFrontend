@@ -37,9 +37,8 @@ export class EditCourse implements OnInit {
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.paramMap.get('id')!;
-    this.loadPlans();
     this.initForm();
-    this.loadCourse();
+    this.loadPlans();
   }
 
   private initForm(): void {
@@ -49,22 +48,8 @@ export class EditCourse implements OnInit {
       description: ['', [Validators.required, Validators.minLength(20)]],
       coverUrl: ['#000000', Validators.required],
       isFree: [true],
-      requiredPlanCode: [null, Validators.required],
-      isPublished: [false]
-    });
-
-    this.form.get('isFree')?.valueChanges.subscribe(isFree => {
-      const planCtrl = this.form.get('requiredPlanCode');
-
-      if (isFree) {
-        planCtrl?.clearValidators();
-        planCtrl?.setValue(null);
-      } else {
-        planCtrl?.setValidators([Validators.required]);
-        if (!planCtrl?.value) planCtrl?.setValue('');
-      }
-
-      planCtrl?.updateValueAndValidity();
+      requiredPlanCode: ['FREE'],
+      published: ['false']
     });
 
     this.form.get('requiredPlanCode')?.valueChanges.subscribe(code => {
@@ -80,12 +65,12 @@ export class EditCourse implements OnInit {
     });
   }
 
- private loadPlans(): void {
+  private loadPlans(): void {
   this.planService.getPlans().subscribe({
     next: (res) => {
-
-      const plans = res.data;
-      this.plans = plans;
+      this.plans = res.data;
+      
+      this.cd.detectChanges();
 
       if (!this.plans.some(p => p.code === 'FREE')) {
         this.plans.unshift({
@@ -96,25 +81,27 @@ export class EditCourse implements OnInit {
           durationDays: 0
         } as Plan);
       }
+
+      this.loadCourse();
     },
-    error: () =>
-      Swal.fire('Error', 'No se pudieron cargar los planes', 'error')
+    error: () => Swal.fire('Error', 'No se pudieron cargar los planes', 'error')
   });
 }
 
   private loadCourse(): void {
     this.courseService.getById(this.courseId).subscribe({
       next: (res) => {
-        const course = res.data;
+        const course = res.data as any;
+        const published = course.published === true || course.isPublished === true;
+        const isFree = course.free === true 
 
         this.form.patchValue({
           title: course.title,
           subtitle: course.subtitle,
           description: course.description,
           coverUrl: course.coverUrl,
-          isFree: course.free,
-          requiredPlanCode: course.free ? 'FREE' : course.requiredPlanCode,
-          isPublished: course.published
+          requiredPlanCode: isFree ? 'FREE' : (course.requiredPlanCode ?? 'FREE'),
+          published: published ? 'true' : 'false'
         });
 
         this.originalIconUrl = course.iconUrl;
@@ -139,6 +126,8 @@ export class EditCourse implements OnInit {
 
   private prepareCourseData(): AdminCourseDto {
     const formValues = this.form.value;
+    const isFree = formValues.requiredPlanCode === 'FREE';
+    const published = formValues.published === true;
 
     return {
       id: this.courseId,
@@ -147,11 +136,11 @@ export class EditCourse implements OnInit {
       description: formValues.description,
       iconUrl: this.originalIconUrl,
       coverUrl: formValues.coverUrl,
-      requiredPlanCode: formValues.requiredPlanCode === 'FREE' 
-                        ? null : formValues.requiredPlanCode,
-      free: formValues.requiredPlanCode === 'FREE',
-      published: formValues.isPublished,
-      createdAt: '' as any
+      requiredPlanCode: isFree ? null : formValues.requiredPlanCode,
+      free: isFree,
+      published: published,
+      isPublished: published,
+      createdAt: ''
     };
   }
 
@@ -164,10 +153,9 @@ export class EditCourse implements OnInit {
 
     const courseData = this.prepareCourseData();
 
-          console.log("Payload enviado:", courseData);
+    console.log("Payload enviado:", courseData);
+
     const save = () => {
-      console.log("VALOR:", this.form.value.isPublished);
-      console.log("TIPO:", typeof this.form.value.isPublished);
       this.courseService.update(this.courseId, courseData).subscribe({
 
         next: () => {
@@ -176,7 +164,6 @@ export class EditCourse implements OnInit {
           });
         },
         error: (err) => {
-          console.error("ERROR BACKEND:", err);
           Swal.fire('Error', err.error?.message || 'No se pudo actualizar', 'error');
         }
       });
