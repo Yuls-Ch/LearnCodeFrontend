@@ -37,14 +37,18 @@ export class ListadoComponent implements OnInit {
   loadCourses(): void {
     this.loading = true;
 
-    let publishedFilter: string | undefined;
-    if (this.isPublished === 'true') publishedFilter = 'true';
-    else if (this.isPublished === 'false') publishedFilter = 'false';
+    const publishedFilter =
+      this.isPublished === 'true' ? 'true' :
+      this.isPublished === 'false' ? 'false' :
+      undefined;
 
     this.courseService.getPaged(this.page, this.pageSize, this.search, publishedFilter)
       .subscribe({
         next: (res) => {
-          this.courses = res.data.content;
+          this.courses = res.data.content.map(c => ({
+            ...c,
+            published: c.published === true || (c as any).isPublished === true
+          }));
           this.totalPages = res.data.totalPages;
           this.pagesArray = Array.from({ length: this.totalPages }, (_, i) => i);
           this.loading = false;

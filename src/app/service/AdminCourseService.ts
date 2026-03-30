@@ -35,7 +35,8 @@ export class AdminCourseService {
   getPaged(page: number, size: number, title?: string, published?: string): Observable<ApiResponse<PageResponse<AdminCourseDto>>> {
     let params = new HttpParams()
       .set('page', page.toString())
-      .set('size', size.toString());
+      .set('size', size.toString())
+      .set('_t', Date.now().toString());
 
     if (title && title.trim() !== '') {
       params = params.set('title', title);
