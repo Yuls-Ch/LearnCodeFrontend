@@ -59,7 +59,7 @@
                class="w-full h-12 px-5 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300" />
       </div>
 
-      <div class="md:col-span-1" *ngIf="!course.free">
+      <div class="md:col-span-1" *ngIf="course.free === false">
         <label class="text-slate-400 text-sm mb-2 block">Plan requerido</label>
         <input [value]="course.requiredPlanCode" disabled
                class="w-full h-12 px-5 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-300 font-mono text-cyan-400" />

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminCourseDto } from '../../../models/AdminCourseDto';
 import { AdminCourseService } from '../../../service/AdminCourseService';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalle',
@@ -29,13 +30,20 @@ export class DetailCourse implements OnInit {
     return;
   }
 
-   this.courseService.getById(id).subscribe({  
+   this.courseService.getById(id).subscribe({
       next: (res) => {
-        this.course = res.data;
-        this.cd.detectChanges();        
+        const data = res.data;
+
+        this.course = {
+          ...data,
+          published: data.isPublished === true,
+          free: data.free === true,
+        };
+        
+        this.cd.detectChanges();
       },
       error: () => {
-        alert('No se pudo cargar el curso');
+        Swal.fire('Error', 'No se pudo cargar el curso', 'error');
         this.router.navigate(['/admin/gestionCurso/listado']);
       }
     });
