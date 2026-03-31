@@ -103,7 +103,7 @@ export class CursoComponent implements OnInit {
 
         data.forEach(c => {
           console.log("CURSO:", c.title,
-            "| isFree:", c.isFree,
+            "| isFree:", c.free,
             "| requiredPlanCode:", c.requiredPlanCode,
           );
         });
@@ -133,7 +133,7 @@ export class CursoComponent implements OnInit {
   }
 
   private canAccessCourse(course: ClientCourse): boolean {
-    if (course.isFree) return true;
+    if (course.free) return true;
 
     if (!course.requiredPlanCode) {
       console.warn("Curso sin plan requerido:", course.title);
@@ -195,7 +195,7 @@ export class CursoComponent implements OnInit {
   }
 
   getCoursePlan(course: ClientCourse): string {
-    if (course.isFree) return "GRATIS";
+    if (course.free) return "GRATIS";
     const plan = course.requiredPlanCode?.trim().toUpperCase();
     if (!plan) return "FREE";
     return plan;

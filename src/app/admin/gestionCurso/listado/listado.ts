@@ -45,10 +45,7 @@ export class ListadoComponent implements OnInit {
     this.courseService.getPaged(this.page, this.pageSize, this.search, publishedFilter)
       .subscribe({
         next: (res) => {
-          this.courses = res.data.content.map(c => ({
-            ...c,
-            published: c.published === true || (c as any).isPublished === true
-          }));
+          this.courses = res.data.content;
           this.totalPages = res.data.totalPages;
           this.pagesArray = Array.from({ length: this.totalPages }, (_, i) => i);
           this.loading = false;
