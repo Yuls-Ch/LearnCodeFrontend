@@ -91,9 +91,8 @@ export class EditCourse implements OnInit {
   private loadCourse(): void {
     this.courseService.getById(this.courseId).subscribe({
       next: (res) => {
-        const course = res.data as any;
-        const published = course.published === true || course.isPublished === true;
-        const isFree = course.free === true 
+        const course = res.data;
+        const isFree = course.free === true;
 
         this.form.patchValue({
           title: course.title,
@@ -101,7 +100,7 @@ export class EditCourse implements OnInit {
           description: course.description,
           coverUrl: course.coverUrl,
           requiredPlanCode: isFree ? 'FREE' : (course.requiredPlanCode ?? 'FREE'),
-          published: published ? 'true' : 'false'
+          published: course.published ? 'true' : 'false'
         });
 
         this.originalIconUrl = course.iconUrl;
@@ -126,7 +125,7 @@ export class EditCourse implements OnInit {
 
   private prepareCourseData(): AdminCourseDto {
     const formValues = this.form.value;
-    const isFree = formValues.requiredPlanCode === 'FREE';
+    const free = formValues.requiredPlanCode === 'FREE';
     const published = formValues.published === true;
 
     return {
@@ -136,10 +135,9 @@ export class EditCourse implements OnInit {
       description: formValues.description,
       iconUrl: this.originalIconUrl,
       coverUrl: formValues.coverUrl,
-      requiredPlanCode: isFree ? null : formValues.requiredPlanCode,
-      free: isFree,
-      published: published,
-      isPublished: published,
+      requiredPlanCode: free ? null : formValues.requiredPlanCode,
+      free: free,
+      published: formValues.published === 'true',
       createdAt: ''
     };
   }

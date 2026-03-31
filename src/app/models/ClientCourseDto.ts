@@ -5,7 +5,7 @@ export interface ClientCourse {
   iconUrl: string;
   coverUrl: string;
 
-  isFree: boolean;
+  free: boolean;
   requiredPlanCode?: string | null;
   unlocked?: boolean;
 

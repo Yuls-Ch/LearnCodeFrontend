@@ -36,7 +36,7 @@ export class DetailCourse implements OnInit {
 
         this.course = {
           ...data,
-          published: data.isPublished === true,
+          published: data.published === true,
           free: data.free === true,
         };
         

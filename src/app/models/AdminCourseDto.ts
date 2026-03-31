@@ -8,6 +8,5 @@ export interface AdminCourseDto {
   free: boolean;
   requiredPlanCode: string | null;
   published: boolean;
-  isPublished?: boolean;
   createdAt: string;        
 }
