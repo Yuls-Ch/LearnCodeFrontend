@@ -40,18 +40,21 @@ Estoy aquí para ayudarte a elegir el mejor curso para ti 💻
     this.inputText = '';
     this.messages.push({ role: 'user', text });
     this.loading = true;
+    
+    this.cd.detectChanges();
+    this.scrollBottom();
 
     this.chatbotService.sendMessage(text).subscribe({
       next: (res: { output: string }) => {
         this.messages.push({ role: 'bot', text: res.output });
-        this.cd.detectChanges();
-
         this.loading = false;
 
+        
+        this.cd.detectChanges();
         this.scrollBottom();
       },
       error: () => {
-        this.messages.push({ role: 'bot', text: 'Error al conectar.' });
+        this.messages.push({ role: 'bot', text: 'Lo siento, hubo un error. Intenta nuevamente.' });
         this.loading = false;
         this.cd.detectChanges();
       }
