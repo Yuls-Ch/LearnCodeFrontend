@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { PlanService } from '../../service/PlanService';
 import { Plan } from '../../models/Plan';
@@ -27,13 +27,36 @@ export class PlansComponent implements OnInit {
     private planService: PlanService,
     private cd: ChangeDetectorRef,
     private http: HttpClient,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
+    this.checkPaymentSuccess();
     this.loadAll();
   }
 
+  checkPaymentSuccess() {
+    this.route.queryParams.subscribe(params => {
+      if (params['success'] === 'true') {
+        Swal.fire({
+          icon: 'success',
+          title: '¡Pago exitoso!',
+          text: 'Tu plan ha sido activado correctamente.',
+          confirmButtonText: 'Continuar'
+        });
+      }
+      if (params['canceled'] === 'true') {
+        Swal.fire({
+          icon: 'info',
+          title: 'Pago cancelado',
+          text: 'No se realizó ningún cobro.',
+          confirmButtonText: 'Volver a planes'
+        });
+      }
+    });
+  }
+  
   //  Cargar planes + subscripcion
 loadAll() {
 
