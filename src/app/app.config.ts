@@ -6,6 +6,7 @@ import { routes } from './app.routes';
 import { authInterceptor } from './auth/auth.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations'; 
 import { provideMarkdown } from 'ngx-markdown';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,72 +1,371 @@
-<header class="p-8 flex justify-between items-center w-full max-w-7xl mx-auto">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/20">
-<span class="material-symbols-outlined text-2xl">code</span>
-</div>
-<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Learn<span class="text-primary">Code</span></span>
-</div>
-<button class="p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:scale-110 transition-transform" onclick="document.documentElement.classList.toggle('dark')">
-<span class="material-symbols-outlined text-xl dark:hidden">light_mode</span>
-<span class="material-symbols-outlined text-xl hidden dark:block">dark_mode</span>
-</button>
-</header>
-<main class="flex-grow flex items-center justify-center p-6 futuristic-gradient">
-<div class="w-full max-w-md">
-<div class="bg-white/80 dark:bg-slate-900/50 backdrop-blur-xl border border-slate-200 dark:border-slate-800 p-8 md:p-10 rounded-3xl shadow-2xl">
-<div class="text-center mb-10">
-<h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-3">Welcome Back</h1>
-<p class="text-slate-500 dark:text-slate-400">Continue your journey to mastery</p>
-</div>
-<div
-  class="w-full flex justify-center bg-white dark:bg-white
-         border border-slate-300 rounded-xl
-         py-3.5 px-6
-         shadow-sm hover:shadow-md
-         transition-all duration-200
-         active:scale-[0.98]"
->
-  <div id="googleBtn"></div>
-</div>
-<div class="relative my-8">
-<div class="absolute inset-0 flex items-center">
-<div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
-</div>
-<div class="relative flex justify-center text-sm">
-<span class="px-4 bg-white dark:bg-[#0c101b] text-slate-500 dark:text-slate-500">Student Access</span>
-</div>
-</div>
-<div class="space-y-4">
-<p class="text-xs text-center text-slate-400 dark:text-slate-500 leading-relaxed">
-                    By signing in, you agree to our 
-                    <a class="text-primary hover:underline" href="#">Terms of Service</a> 
-                    and 
-                    <a class="text-primary hover:underline" href="#">Privacy Policy</a>.
-                </p>
-</div>
-</div>
-<div class="mt-8 grid grid-cols-3 gap-4 text-center">
-<div class="p-3 rounded-2xl bg-slate-200/50 dark:bg-slate-800/30">
-<p class="text-[10px] uppercase tracking-wider font-bold text-slate-400 dark:text-slate-500 mb-1">Standard</p>
-<p class="text-sm font-semibold text-slate-600 dark:text-slate-300">Basic Access</p>
-</div>
-<div class="p-3 rounded-2xl bg-primary/10 border border-primary/20 ring-1 ring-primary/30">
-<p class="text-[10px] uppercase tracking-wider font-bold text-primary mb-1">Pro</p>
-<p class="text-sm font-semibold text-primary">All Courses</p>
-</div>
-<div class="p-3 rounded-2xl bg-slate-200/50 dark:bg-slate-800/30">
-<p class="text-[10px] uppercase tracking-wider font-bold text-slate-400 dark:text-slate-500 mb-1">Elite</p>
-<p class="text-sm font-semibold text-slate-600 dark:text-slate-300">1-on-1 Mentors</p>
-</div>
-</div>
-</div>
-</main>
-<footer class="p-8 text-center">
-<div class="flex flex-wrap justify-center gap-6 text-sm text-slate-500 dark:text-slate-600">
-<a class="hover:text-primary transition-colors" href="#">Platform Status</a>
-<a class="hover:text-primary transition-colors" href="#">Contact Support</a>
-<a class="hover:text-primary transition-colors" href="#">Resource Center</a>
-</div>
-<p class="mt-4 text-xs text-slate-400 dark:text-slate-700">
-        © 2024 LearnCode Educational Platforms. All rights reserved.
-    </p>
+<canvas id="lc-particles" class="particles"></canvas>
+
+<section class="hero" id="home">
+  <div class="hero__robot-bg">
+    <div class="hero__robot-glow"></div>
+    <div class="hero__robot-ring"></div>
+    <div class="hero__robot-ring2"></div>
+  </div>
+
+  <div class="orb orb--purple-hero"></div>
+  <div class="orb orb--blue-hero"></div>
+
+  <nav class="nav" [class.nav--scrolled]="isScrolled">
+    <a href="#" class="nav__logo">
+      <div class="nav__logo-icon"> &lt;&gt; </div>
+      Learn<span>Code</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="#features">Características</a></li>
+      <li><a href="#pricing">Planes</a></li>
+      <li><a href="#testimonials">Testimonios</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+    <div class="nav__cta">
+      <button class="btn btn--primary" (click)="openModal()">Empezar gratis</button>
+    </div>
+  </nav>
+
+  <div class="container hero__content-container">
+    <div class="hero__inner">
+
+      <div class="hero__left">
+
+        <div class="hero__text">
+          <div class="hero__tag">
+            <span class="hero__tag-dot"></span>
+            Plataforma #1 de programación en LATAM
+          </div>
+          <h1 class="hero__title">
+            Aprende a <span class="hero__title-grad">programar</span> sin límites
+          </h1>
+          <p class="hero__desc">
+            Cursos interactivos con mentores reales, proyectos del mundo laboral
+            y una comunidad activa que te impulsa hasta el primer empleo.
+          </p>
+          <div class="hero__actions">
+            <button class="btn btn--primary btn--lg" (click)="openModal()">Empezar gratis →</button>
+            <a href="#pricing" class="btn btn--outline btn--lg">Ver Planes</a>
+          </div>
+        </div>
+
+        <div class="hero__trust">
+          <div class="hero__avatars-container">
+            <div class="hero__avatars">
+              <div class="hero__avatar" style="background:linear-gradient(135deg,#8b5cf6,#3b82f6)">AL</div>
+              <div class="hero__avatar" style="background:linear-gradient(135deg,#06b6d4,#3b82f6)">MR</div>
+              <div class="hero__avatar" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">KP</div>
+              <div class="hero__avatar" style="background:linear-gradient(135deg,#10b981,#06b6d4)">JV</div>
+            </div>
+            <p class="hero__trust-text"><strong>+4,200 estudiantes</strong> ya están aprendiendo hoy</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hero__right">
+        <spline-viewer class="hero__spline" url="https://prod.spline.design/Si4zrEcqiO33Qhy4/scene.splinecode?v=3">
+        </spline-viewer>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="stats reveal">
+  <div class="container">
+    <div class="stats__grid">
+      <div class="stats__item">
+        <div class="stats__num" data-target="25">0+</div>
+        <div class="stats__label">Cursos disponibles</div>
+      </div>
+      <div class="stats__item">
+        <div class="stats__num" data-target="4200">0+</div>
+        <div class="stats__label">Estudiantes activos</div>
+      </div>
+      <div class="stats__item">
+        <div class="stats__num" data-target="98">0%</div>
+        <div class="stats__label">% satisfacción</div>
+      </div>
+      <div class="stats__item">
+        <div class="stats__num" data-target="50">0+</div>
+        <div class="stats__label">Mentores expertos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="container">
+    <div class="features__header reveal">
+      <div>
+        <span class="eyebrow">Por qué elegirnos</span>
+        <h2 class="section-title">Todo lo que necesitas para<br>crecer como dev</h2>
+      </div>
+      <p class="section-sub">
+        Desde tu primera línea de código hasta conseguir tu primer empleo —
+        LearnCode tiene cada paso cubierto.
+      </p>
+    </div>
+    <div class="features__grid">
+      <div class="feature-card reveal">
+        <div class="feature-card__icon feature-card__icon--purple">🎯</div>
+        <div class="feature-card__title">Ver tu proceso de aprendizaje</div>
+        <p class="feature-card__desc">
+          Sigue tu progreso en tiempo real y descubre áreas donde puedes mejorar.
+        </p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card__icon feature-card__icon--blue">🧑‍💻</div>
+        <div class="feature-card__title">Crea proyectos reales</div>
+        <p class="feature-card__desc">Construye apps del mundo real que puedes añadir a tu portafolio desde el primer
+          módulo.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card__icon feature-card__icon--pink">🤖</div>
+        <div class="feature-card__title">Asistente de IA</div>
+        <p class="feature-card__desc">Un asistente de IA disponible 24/7 que responde tus dudas respecto a los proximos
+          cursos que realizaras.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card__icon feature-card__icon--green">🏆</div>
+        <div class="feature-card__title">Actualizaciones constantes</div>
+        <p class="feature-card__desc">Cursos actualizados regularmente con las últimas tecnologías.
+        </p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-card__icon feature-card__icon--amber">🌎</div>
+        <div class="feature-card__title">Comunidad activa</div>
+        <p class="feature-card__desc">Discord con más de 4,000 devs, eventos semanales, hackathons y networking real.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing__header reveal">
+      <span class="eyebrow">Planes y precios</span>
+      <h2 class="section-title">Invierte en tu carrera</h2>
+      <p class="section-sub">Sin contratos, cancela cuando quieras. Elige el plan que mejor se adapte a tu ritmo.</p>
+    </div>
+
+    <div class="pricing__grid reveal">
+
+      <!-- Free -->
+      <div class="plan-card">
+        <div class="plan-card__name">Gratis</div>
+        <div class="plan-card__price">
+          <span class="plan-card__currency">$</span>
+          <span class="plan-card__amount">0</span>
+          <span class="plan-card__currency">/ mes</span>
+        </div>
+        <p class="plan-card__desc">Accecso completo a la plataforma de LearnCode.</p>
+        <hr class="plan-card__divider">
+        <ul class="plan-card__features">
+          <li>Acceso a cursos gratuitos</li>
+          <li>Acceso a comunidad Discord</li>
+          <li>Certificado básico de completado</li>
+        </ul>
+        <button class="btn btn--outline" (click)="openModal()">Comenzar gratis</button>
+      </div>
+
+      <!-- ORO -->
+      <div class="plan-card">
+        <div class="plan-card__name">Plan Oro</div>
+        <div class="plan-card__price">
+          <span class="plan-card__currency">$</span>
+          <span class="plan-card__amount">19.99</span>
+          <span class="plan-card__period">/ mes</span>
+        </div>
+        <p class="plan-card__desc">Para devs serios que quieren avanzar rápido.</p>
+        <hr class="plan-card__divider">
+        <ul class="plan-card__features">
+          <li>Cursos tipo Oro desbloqueados</li>
+          <li>Descarga de recursos offline</li>
+        </ul>
+        <button class="btn btn--outline" (click)="openModal()">Elegir Oro</button>
+      </div>
+
+      <!-- Platino  -->
+      <div class="plan-card plan-card--featured">
+        <div class="plan-card__popular">Más popular</div>
+        <div class="plan-card__name">Plan Platino</div>
+        <div class="plan-card__price">
+          <span class="plan-card__currency">$</span>
+          <span class="plan-card__amount">29.99</span>
+          <span class="plan-card__period">/ mes</span>
+        </div>
+        <p class="plan-card__desc">Para quienes quieren mentoría personalizada.</p>
+        <hr class="plan-card__divider">
+        <ul class="plan-card__features">
+          <li>Cursos tipo Platino y Oro desbloqueados</li>
+          <li>Asistente de IA ilimitado</li>
+          <li>Descarga de recursos offline</li>
+        </ul>
+        <button class="btn btn--primary" (click)="openModal()">Empezar ahora</button>
+      </div>
+
+      <!-- Diamante  -->
+      <div class="plan-card plan-card--featured">
+        <div class="plan-card__popular">Más popular</div>
+        <div class="plan-card__name">Plan Diamante</div>
+        <div class="plan-card__price">
+          <span class="plan-card__currency">$</span>
+          <span class="plan-card__amount">39.99</span>
+          <span class="plan-card__period">/ mes</span>
+        </div>
+        <p class="plan-card__desc">Para quienes quieren mentoría personalizada.</p>
+        <hr class="plan-card__divider">
+        <ul class="plan-card__features">
+          <li>Todos los cursos desbloqueados</li>
+          <li>Acceso ilimitado a cursos</li>
+          <li>Acceso anticipado a nuevos cursos</li>
+          <li>Canal privado de Slack con mentores</li>
+        </ul>
+        <button class="btn btn--primary" (click)="openModal()">Empezar ahora</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="testimonials__header reveal">
+      <span class="eyebrow">Testimonios</span>
+      <h2 class="section-title">Lo que dicen nuestros estudiantes</h2>
+    </div>
+    <div class="testi__grid">
+      <div class="testi-card reveal">
+        <div class="testi-card__stars">★★★★★</div>
+        <p class="testi-card__quote">"Pasé de no saber nada de código a conseguir trabajo como junior en 8 meses. La
+          mentoría 1:1 fue lo que marcó la diferencia."</p>
+        <div class="testi-card__author">
+          <div class="testi-card__avatar" style="background:linear-gradient(135deg,#8b5cf6,#3b82f6)">AR</div>
+          <div>
+            <div class="testi-card__name">Alejandro Ríos</div>
+            <div class="testi-card__role">Frontend Dev en Startup Lima</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-card__stars">★★★★★</div>
+        <p class="testi-card__quote">"El curso de Spring Boot es brutalmente práctico. Después de completarlo armé una
+          API REST completa para mi empresa en una semana."</p>
+        <div class="testi-card__author">
+          <div class="testi-card__avatar" style="background:linear-gradient(135deg,#06b6d4,#10b981)">MV</div>
+          <div>
+            <div class="testi-card__name">María Vargas</div>
+            <div class="testi-card__role">Backend Engineer — remoto</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-card__stars">★★★★★</div>
+        <p class="testi-card__quote">"La comunidad es increíble. Encontré compañero de trabajo en el Discord y juntos
+          lanzamos nuestra primera app."</p>
+        <div class="testi-card__author">
+          <div class="testi-card__avatar" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">KP</div>
+          <div>
+            <div class="testi-card__name">Karla Paredes</div>
+            <div class="testi-card__role">Co-fundadora de DevPair.pe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="cta-section__glow"></div>
+  <div class="container">
+    <div class="cta-section__inner reveal">
+      <span class="eyebrow" style="justify-content:center">Empieza hoy</span>
+      <h2 class="cta-section__title">Tu carrera en tech<br>comienza aquí</h2>
+      <p class="cta-section__sub">Únete a miles de devs que ya están construyendo su futuro. Sin excusas, sin límites.
+      </p>
+      <div class="cta-section__actions">
+        <button class="btn btn--primary btn--lg" (click)="openModal()">Crear cuenta gratis →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="nav__logo" style="font-size:1.1rem">
+          <div class="nav__logo-icon" style="width:30px;height:30px;font-size:.85rem">⌨️</div>
+          Learn<span style="color:var(--c-purple-hi)">Code</span>
+        </div>
+        <p class="footer__brand-desc">La plataforma de aprendizaje de programación más completa de LATAM. Cursos,
+          mentores y comunidad.</p>
+      </div>
+      <div>
+        <div class="footer__col-title">Plataforma</div>
+        <ul class="footer__links">
+          <li><a href="#">Rutas de aprendizaje</a></li>
+          <li><a href="#">Mentores</a></li>
+          <li><a href="#">Comunidad</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-title">Empresa</div>
+        <ul class="footer__links">
+          <li><a href="#">Sobre nosotros</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Trabaja con nosotros</a></li>
+          <li><a href="#">Prensa</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-title">Soporte</div>
+        <ul class="footer__links">
+          <li><a href="#">Centro de ayuda</a></li>
+          <li><a href="#">Estado del sistema</a></li>
+          <li><a href="#">Términos de uso</a></li>
+          <li><a href="#">Privacidad</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2025 LearnCode Educational Platforms. Todos los derechos reservados.</span>
+      <div class="footer__socials">
+        <a href="#">Twitter</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Discord</a>
+      </div>
+    </div>
+  </div>
 </footer>
+
+<div class="modal-overlay" [class.open]="modalOpen" (click)="onOverlayClick($event)">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <button class="modal__close" (click)="closeModal()">×</button>
+    <div class="modal__logo">
+      <div class="modal__logo-icon">
+        <>
+      </div>
+      Learn<span>Code</span>
+    </div>
+    <h2 class="modal__title">Bienvenido de vuelta</h2>
+    <p class="modal__sub">Continúa tu camino hacia el dominio del código</p>
+    <div class="modal__google-wrap">
+      <div id="googleBtn"></div>
+    </div>
+    <div class="modal__divider">
+      <div class="modal__divider-line"></div>
+      <span class="modal__divider-text">Acceso para estudiantes</span>
+      <div class="modal__divider-line"></div>
+    </div>
+
+    <p class="modal__terms">
+      Al ingresar aceptas nuestros
+      <a href="#">Términos de servicio</a> y
+      <a href="#">Política de privacidad</a>.
+    </p>
+  </div>
+</div>
