@@ -55,10 +55,11 @@ export class ListadoSuscripcion implements OnInit {
           this.suscripciones = resp.data.content ?? [];
           this.totalPages = resp.data.totalPages ?? 0;
           this.page = resp.data.number ?? 0;
+
+          this.cd.detectChanges();
         } else {
           console.error('Error API:', resp.mensaje);
         }
-        this.cd.detectChanges();
       },
       error: err => {
         console.error('ERROR:', err);
@@ -69,6 +70,8 @@ export class ListadoSuscripcion implements OnInit {
   aplicarFiltros() {
     this.page = 0;
     this.cargarSuscripciones();
+
+    this.cd.detectChanges();
   }
 
   resetFiltros() {
@@ -76,11 +79,14 @@ export class ListadoSuscripcion implements OnInit {
     this.status = 'TODO';
     this.page = 0;
     this.cargarSuscripciones();
+
+    this.cd.detectChanges();
   }
 
   cambiarPagina(p: number) {
     if (p < 0 || p >= this.totalPages) return;
     this.page = p;
     this.cargarSuscripciones();
+    this.cd.detectChanges();
   }
 }
