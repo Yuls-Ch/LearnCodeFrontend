@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { routes } from './app.routes';
@@ -10,7 +10,11 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes), 
+    provideRouter(routes, 
+                          withInMemoryScrolling({
+                            scrollPositionRestoration: 'top',
+                            anchorScrolling: 'enabled'
+                          })), 
     provideHttpClient(
       withInterceptors([authInterceptor])
     ),

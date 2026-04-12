@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/co
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { ChatbotService } from '../../service/chatbot.service';
+import { ChatbotService } from './service/chatbot.service';
 import { MarkdownModule } from "ngx-markdown"; // Formate JSON para respuesta del Bot
 
 @Component({
