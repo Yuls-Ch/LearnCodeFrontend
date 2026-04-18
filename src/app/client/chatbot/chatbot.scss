@@ -9,14 +9,14 @@
   --chat-input-bg: #F8F8FF;
 }
 
-:host(.dark) {
+:host-context(.dark) {
   --chat-primary: #7F77DD;
-  --chat-primary-dark: #534AB7;
-  --chat-bubble-bot: #2C2C2A;
+  --chat-primary-dark: #473daf;
+  --chat-bubble-bot: #282827;
   --chat-bubble-bot-text: #D3D1C7;
   --chat-bg: #1a1a2e;
-  --chat-border: #3C3489;
-  --chat-input-bg: #16213e;
+  --chat-border: #645cab;
+  --chat-input-bg: #26163e;
 }
 
 .chat-bubble-btn {
@@ -263,7 +263,8 @@
     }
 
     &::placeholder {
-      color: #888;
+      color: var(--chat-bubble-bot-text);
+      opacity: 0.6;
     }
   }
 
