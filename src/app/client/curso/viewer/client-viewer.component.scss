@@ -4,14 +4,25 @@
 }
 
 .custom-scrollbar {
-    &::-webkit-scrollbar { width: 4px; }
-    &::-webkit-scrollbar-track { background: transparent; }
-    &::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
-    &:hover::-webkit-scrollbar-thumb { background: rgba(0, 210, 255, 0.3); }
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+        background: rgba(0, 210, 255, 0.3);
+    }
 }
 
 .glass-panel {
-    background: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -25,7 +36,7 @@
 }
 
 .pdf-canvas {
-    background-image: 
+    background-image:
         radial-gradient(at 0% 0%, rgba(0, 210, 255, 0.03) 0px, transparent 50%),
         radial-gradient(at 100% 100%, rgba(112, 0, 255, 0.03) 0px, transparent 50%);
 }
@@ -35,9 +46,26 @@
     animation-fill-mode: forwards;
 }
 
-.bg-background-dark { background-color: #050810; }
-.text-slate-100 { color: #f1f5f9; }
-.text-primary { color: #00D2FF; }
-.bg-primary { background-color: #00D2FF; }
-.border-primary-20 { border-color: rgba(0, 210, 255, 0.2); }
-.bg-surface-dark { background-color: #0F172A; }
+.bg-background-dark {
+    background-color: #050810;
+}
+
+.text-slate-100 {
+    color: #f1f5f9;
+}
+
+.text-primary {
+    color: #00D2FF;
+}
+
+.bg-primary {
+    background-color: #00D2FF;
+}
+
+.border-primary-20 {
+    border-color: rgba(0, 210, 255, 0.2);
+}
+
+.bg-surface-dark {
+    background-color: #0F172A;
+}

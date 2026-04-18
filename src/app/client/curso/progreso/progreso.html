@@ -1,0 +1,170 @@
+<main class="min-h-screen pt-32 pb-20 px-6 max-w-7xl mx-auto transition-colors duration-500">
+
+  <div class="text-center mb-16 space-y-5">
+
+    <div class="inline-flex items-center px-4 py-1.5 rounded-full glass
+                border border-primary/20 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
+      <span class="w-2 h-2 rounded-full bg-primary mr-2"></span>
+      Panel de control de dominio
+    </div>
+
+    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight
+               text-slate-900 dark:text-white leading-tight">
+      Progreso de
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-indigo-500 to-purple-500">
+        aprendizaje
+      </span>
+    </h1>
+
+    <p class="max-w-2xl mx-auto text-slate-600 dark:text-slate-400 text-base leading-relaxed">
+      Supervisa tu avance académico, continúa tus cursos activos y consolida tu dominio de forma progresiva.
+    </p>
+
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+
+    <div class="glass-panel rounded-2xl p-6 border border-white/5 hover:shadow-lg transition">
+      <p class="text-xs uppercase text-slate-500 mb-2 tracking-wider">Cursos</p>
+      <h3 class="text-3xl font-bold text-slate-900 dark:text-white">
+        {{ courses.length }}
+      </h3>
+    </div>
+
+    <div class="glass-panel rounded-2xl p-6 border border-white/5 hover:shadow-lg transition">
+      <p class="text-xs uppercase text-slate-500 mb-2 tracking-wider">Progreso Global</p>
+      <h3 class="text-3xl font-bold text-primary">
+        {{ progresoGlobal }}%
+      </h3>
+
+      <div class="progress-track mt-3">
+        <div class="liquid-neon h-full" [style.width.%]="progresoGlobal"></div>
+      </div>
+    </div>
+
+    <div class="glass-panel rounded-2xl p-6 border border-white/5 hover:shadow-lg transition">
+      <p class="text-xs uppercase text-slate-500 mb-2 tracking-wider">Completados</p>
+      <h3 class="text-3xl font-bold text-purple-500">
+        {{ cursosCompletados.length }}
+      </h3>
+    </div>
+
+  </div>
+
+  <div *ngIf="isLoading" class="flex justify-center py-20">
+    <div class="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+  </div>
+
+  <ng-container *ngIf="!isLoading">
+
+    <div class="flex justify-center gap-10 mb-14 border-b border-slate-200 dark:border-white/10">
+
+      <button (click)="tabActivo='progreso'" class="pb-4 text-sm font-semibold uppercase tracking-widest transition-all"
+        [ngClass]="tabActivo==='progreso'
+          ? 'text-primary border-b-2 border-primary'
+          : 'text-slate-400 hover:text-primary'">
+        En progreso
+      </button>
+
+      <button (click)="tabActivo='completados'"
+        class="pb-4 text-sm font-semibold uppercase tracking-widest transition-all" [ngClass]="tabActivo==='completados'
+          ? 'text-primary border-b-2 border-primary'
+          : 'text-slate-400 hover:text-primary'">
+        Completados
+      </button>
+
+    </div>
+
+    <section *ngIf="tabActivo==='progreso'">
+
+      <div *ngIf="cursosEnProgreso.length === 0" class="text-center py-16 text-slate-400">
+        No tienes cursos en progreso
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <div *ngFor="let course of cursosEnProgreso; let i= index" (click)="onCourseClick(course)" class="group cursor-pointer rounded-2xl p-6
+                 glass-panel anim-entry border border-white/5
+                 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+          [ngStyle]="{'animation-delay': (i * 0.08) + 's'}">
+
+          <div class="flex items-center gap-5 mb-5">
+
+            <img *ngIf="course.iconUrl" [src]="course.iconUrl"
+              class="w-14 h-14 object-contain group-hover:scale-105 transition" />
+
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">
+                {{ course.title }}
+              </h3>
+              <p class="text-xs text-slate-500">
+                {{ course.completedModules }} / {{ course.totalModules }} módulos
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs text-slate-500 mb-1">
+              <span>Progreso</span>
+
+              <span class="text-sm font-semibold text-primary">
+                {{ course.progressPercentage }}%
+              </span>
+            </div>
+
+            <div class="progress-track">
+              <div class="liquid-neon h-full transition-all duration-500" [style.width.%]="course.progressPercentage">
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 flex justify-between items-center text-sm">
+            <span class="text-primary font-medium">Continuar curso</span>
+            <span class="material-symbols-outlined text-slate-400 group-hover:translate-x-1 transition">
+              arrow_forward
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section *ngIf="tabActivo==='completados'">
+
+      <div *ngIf="cursosCompletados.length === 0" class="text-center py-16 text-slate-400">
+        Aún no completas cursos
+      </div>
+
+      <div class="space-y-6">
+
+        <div *ngFor="let course of cursosCompletados" (click)="onCourseClick(course)" class="flex justify-between items-center p-6 rounded-2xl
+                 glass-panel border border-white/5 shadow-sm hover:shadow-md transition">
+
+          <div class="flex items-center gap-5">
+            <img *ngIf="course.iconUrl" [src]="course.iconUrl" class="w-12 h-12" />
+            <div>
+              <h4 class="font-semibold text-slate-900 dark:text-white">
+                {{ course.title }}
+              </h4>
+              <p class="text-xs text-slate-500">
+                {{ course.totalModules }} módulos
+              </p>
+            </div>
+          </div>
+
+          <button class="flex items-center gap-2 px-5 py-2 rounded-lg
+               bg-gradient-to-r from-emerald-500 to-teal-500
+               text-white text-sm font-medium
+               hover:scale-105 transition
+               shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+
+            <span class="material-symbols-outlined">emoji_events</span>
+            Completado
+          </button>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+</main>

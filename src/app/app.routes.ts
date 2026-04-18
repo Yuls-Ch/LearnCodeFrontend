@@ -20,6 +20,7 @@ import { ClientViewerComponent } from './client/curso/viewer/client-viewer.compo
 import { SubscriptionComponent } from './client/subscription/subscription';
 import { PaymentsHistoryComponent } from './admin/payments-history/payments-history';
 import { ChatbotComponent } from './client/chatbot/chatbot';
+import { ProgresoComponent } from './client/curso/progreso/progreso';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -34,7 +35,8 @@ export const routes: Routes = [
       { path: 'curso', component: CursoComponent },
       { path: 'plans', component: PlansComponent },
       { path: 'subscription', component: SubscriptionComponent },
-      { path: 'chatbot', component: ChatbotComponent }
+      { path: 'chatbot', component: ChatbotComponent },
+      { path: 'curso/progreso', component: ProgresoComponent},
     ],
   },
   {
@@ -57,8 +59,7 @@ export const routes: Routes = [
       { path: 'gestionSuscripcion', component: ListadoSuscripcion },
       { path: 'gestionSuscripcion/editar/:id', component: EditarSuscripcion },
       {
-        path: 'payments-history',
-        component: PaymentsHistoryComponent,
+        path: 'payments-history', component: PaymentsHistoryComponent,
       },
     ],
   },
