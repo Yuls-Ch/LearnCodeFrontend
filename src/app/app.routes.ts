@@ -21,6 +21,7 @@ import { SubscriptionComponent } from './client/subscription/subscription';
 import { PaymentsHistoryComponent } from './admin/payments-history/payments-history';
 import { ChatbotComponent } from './client/chatbot/chatbot';
 import { ProgresoComponent } from './client/curso/progreso/progreso';
+import { StatisticsComponent } from './admin/statistics/statistics'; 
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -56,11 +57,11 @@ export const routes: Routes = [
       { path: 'gestionCurso/editar/:id', component: EditCourse },
       { path: 'gestionCurso/detalle/:id', component: DetailCourse },
 
+      { path: 'statistics', component: StatisticsComponent },
+
       { path: 'gestionSuscripcion', component: ListadoSuscripcion },
       { path: 'gestionSuscripcion/editar/:id', component: EditarSuscripcion },
-      {
-        path: 'payments-history', component: PaymentsHistoryComponent,
-      },
+      { path: 'payments-history', component: PaymentsHistoryComponent,},
     ],
   },
 ];
