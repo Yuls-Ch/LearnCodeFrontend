@@ -40,11 +40,19 @@
                           hover:text-primary transition">
                     Suscripciones
                 </a>
+
                 <a routerLink="/admin/payments-history" routerLinkActive="active" class="text-lg font-medium
           text-slate-700 dark:text-slate-100
           hover:text-primary transition">
                     Historial de pagos
                 </a>
+
+                <a routerLink="/admin/statistics" routerLinkActive="active" class="text-lg font-medium
+                          text-slate-700 dark:text-slate-100
+                          hover:text-primary transition">
+                    Estadísticas
+                </a>
+
             </nav>
 
             <div class="flex items-center gap-3">
@@ -135,6 +143,12 @@
           text-slate-800 dark:text-slate-100
           hover:text-primary transition">
                     Historial de pagos
+                </a>
+
+                <a routerLink="/admin/statistics" routerLinkActive="active" (click)="toggleMobileMenu()" class="text-lg font-semibold
+                          text-slate-800 dark:text-slate-100
+                          hover:text-primary transition">
+                    Estadísticas
                 </a>
             </nav>
         </div>

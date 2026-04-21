@@ -1,0 +1,83 @@
+<main class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <!-- HEADER -->
+    <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+            <h1 class="text-3xl md:text-4xl font-black tracking-tight 
+                       font-black dark:text-white dark:text-slate-40 dark:text-white">
+                Estadísticas
+            </h1>
+            <p class="text-slate-500 dark:text-slate-400 mt-2 font-medium">
+                Visualiza el rendimiento de tu plataforma con gráficos claros y detallados.
+            </p>
+        </div>
+    </div>
+
+    <!-- TABS (SECCIONES) -->
+    <div class="flex justify-center gap-10 mb-10 border-b border-slate-200 dark:border-white/10">
+
+        <button (click)="tabActivo='ingresos'"
+            class="pb-4 text-sm font-semibold uppercase tracking-widest transition-all" [ngClass]="tabActivo==='ingresos'
+                ? 'text-cyan-400 border-b-2 border-cyan-400'
+                : 'text-slate-400 hover:text-cyan-400'">
+            Ingresos
+        </button>
+
+        <button (click)="tabActivo='planes'" class="pb-4 text-sm font-semibold uppercase tracking-widest transition-all"
+            [ngClass]="tabActivo==='planes'
+                ? 'text-purple-400 border-b-2 border-purple-400'
+                : 'text-slate-400 hover:text-purple-400'">
+            Planes
+        </button>
+
+        <button (click)="tabActivo='cursos'" class="pb-4 text-sm font-semibold uppercase tracking-widest transition-all"
+            [ngClass]="tabActivo==='cursos'
+                ? 'text-blue-400 border-b-2 border-blue-400'
+                : 'text-slate-400 hover:text-blue-400'">
+            Cursos
+        </button>
+
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- INGRESOS -->
+        <div [hidden]="tabActivo !== 'ingresos'" class="col-span-1 md:col-span-2 
+            bg-white/60 dark:bg-white/5 backdrop-blur-xl 
+            border border-white/10 rounded-2xl p-6 shadow-xl">
+            <h2 class="text-lg font-semibold mb-6 text-cyan-400">Ingresos por mes</h2>
+            <div class="h-[300px]">
+                <canvas #incomeMonthChart></canvas>
+            </div>
+        </div>
+
+        <!-- PLANES -->
+        <div [hidden]="tabActivo !== 'planes'" class="bg-white/60 dark:bg-white/5 backdrop-blur-xl 
+            border border-white/10 rounded-2xl p-6 shadow-xl">
+            <h2 class="text-lg font-semibold mb-6 text-purple-400">Ingresos por plan</h2>
+            <div class="h-[280px] flex items-center justify-center">
+                <canvas #incomePlanChart></canvas>
+            </div>
+        </div>
+
+        <div [hidden]="tabActivo !== 'planes'" class="bg-white/60 dark:bg-white/5 backdrop-blur-xl 
+            border border-white/10 rounded-2xl p-6 shadow-xl">
+            <h2 class="text-lg font-semibold mb-6 text-purple-400">Estudiantes por plan</h2>
+            <div class="h-[280px]">
+                <canvas #studentPlanChart></canvas>
+            </div>
+        </div>
+
+        <!-- CURSOS -->
+        <div [hidden]="tabActivo !== 'cursos'" class="col-span-1 md:col-span-2 
+            bg-white/60 dark:bg-white/5 backdrop-blur-xl 
+            border border-white/10 rounded-2xl p-6 shadow-xl">
+            <h2 class="text-lg font-semibold mb-6 text-blue-400">Cursos más vistos</h2>
+            <div class="h-[300px]">
+                <canvas #courseChart></canvas>
+            </div>
+        </div>
+    </div>
+
+</main>
